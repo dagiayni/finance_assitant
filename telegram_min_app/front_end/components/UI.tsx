@@ -9,9 +9,8 @@ function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-interface CardProps {
+interface CardProps extends HTMLMotionProps<"div"> {
   children: ReactNode;
-  className?: string;
   variant?: "lowest" | "low" | "default" | "high" | "highest" | "glass";
   paperGrain?: boolean;
   animate?: boolean;
@@ -23,6 +22,7 @@ export function Card({
   variant = "lowest",
   paperGrain = true,
   animate = true,
+  ...props
 }: CardProps) {
   const variantClasses = {
     lowest: "bg-surface-container-lowest",
@@ -33,7 +33,7 @@ export function Card({
     glass: "glass",
   };
 
-  const Wrapper = animate ? motion.div : "div";
+  const Wrapper = animate ? motion.div : ("div" as any);
 
   return (
     <Wrapper
@@ -46,6 +46,7 @@ export function Card({
         paperGrain && "paper-grain",
         className
       )}
+      {...props}
     >
       <div className="relative z-10">{children}</div>
     </Wrapper>
