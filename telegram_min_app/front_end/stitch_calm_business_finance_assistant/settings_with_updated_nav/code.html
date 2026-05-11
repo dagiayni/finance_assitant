@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Work+Sans:wght@400;500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-container": "#7f8b70",
+                    "surface-container-lowest": "#ffffff",
+                    "background": "#f9f9ff",
+                    "surface-tint": "#50616c",
+                    "on-secondary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-tertiary": "#ffffff",
+                    "on-surface-variant": "#43474b",
+                    "surface-variant": "#dce2f3",
+                    "surface-container-low": "#f0f3ff",
+                    "on-surface": "#151c27",
+                    "on-secondary-container": "#586b32",
+                    "inverse-on-surface": "#ebf1ff",
+                    "error": "#ba1a1a",
+                    "outline": "#73777b",
+                    "tertiary-container": "#19220e",
+                    "primary-container": "#10212b",
+                    "on-tertiary-fixed": "#151e0b",
+                    "on-error-container": "#93000a",
+                    "surface": "#f9f9ff",
+                    "primary-fixed": "#d3e5f3",
+                    "primary": "#00080e",
+                    "outline-variant": "#c3c7cb",
+                    "on-error": "#ffffff",
+                    "inverse-surface": "#2a313d",
+                    "secondary-fixed-dim": "#b9cf8a",
+                    "on-secondary-fixed-variant": "#3b4d17",
+                    "on-primary-container": "#788995",
+                    "on-background": "#151c27",
+                    "on-secondary-fixed": "#141f00",
+                    "surface-container": "#e7eefe",
+                    "surface-bright": "#f9f9ff",
+                    "primary-fixed-dim": "#b7c9d6",
+                    "on-tertiary-fixed-variant": "#404a33",
+                    "inverse-primary": "#b7c9d6",
+                    "tertiary-fixed": "#dbe7c8",
+                    "secondary-fixed": "#d4eba4",
+                    "tertiary": "#030900",
+                    "tertiary-fixed-dim": "#bfcbad",
+                    "on-primary": "#ffffff",
+                    "surface-dim": "#d3daea",
+                    "secondary-container": "#d4eba4",
+                    "surface-container-highest": "#dce2f3",
+                    "surface-container-high": "#e2e8f8",
+                    "secondary": "#52652c",
+                    "on-primary-fixed-variant": "#384954",
+                    "on-primary-fixed": "#0c1d27"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "inner_padding": "20px",
+                    "element_gap": "16px",
+                    "section_gap": "32px",
+                    "page_margin": "24px"
+            },
+            "fontFamily": {
+                    "label-sm": ["Work Sans"],
+                    "display-price": ["Manrope"],
+                    "body-md": ["Manrope"],
+                    "label-md": ["Work Sans"],
+                    "headline-md": ["Manrope"],
+                    "headline-lg": ["Manrope"],
+                    "body-lg": ["Manrope"]
+            },
+            "fontSize": {
+                    "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+                    "display-price": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>body {
+    background-color: #f9f9ff
+    }
+.paper-grain {
+    position: relative
+    }
+.paper-grain::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuC92t9X7DVJBb0mp5L08-hekmBl0vabydaaig9lEVkWmPBLZjdf4TjFua9vGODclnbJVxHhZG0TBi9KOc29WuFHYVDVVcrDoLnT7bY-ekcMo-yFtvKPzHdqc2rgGH1RJVsbb1P6YzIZs87u8GTGuttEhUAQlLk08Wle7NUK0AKaf4Sd6KyzDDbCTbPwVCexfzt9R-spkyaMNpMrmryuWl6rIpMu9lu5SDjO8SuPSjkYDwtCMOsaf4sVZ3aeppKls072Z3_NsWLuKMs);
+    opacity: 0.02;
+    pointer-events: none;
+    border-radius: inherit
+    }
+.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24
+    }</style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="font-body-md text-on-background bg-background">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-page_margin h-16 w-full bg-background dark:bg-background">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container overflow-hidden">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A professional close-up portrait of a business executive in a high-key setting. The person has a calm, confident expression, captured in soft, natural morning light. The background is a blurred, minimalist office with clean lines and a white-and-gray color palette, maintaining a premium and organized aesthetic typical of high-end business photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6FN8ji9nIsI1AdtFVYUAgnqEY0m7Ndm3QwvkDFGnmdCBrI1MZy2j2ow54hHqsqyHsBr-5fR3wcmo47F8bKJUDVLszM_JQ0hLVD8bCKGNCabq-jSqXYgxM1igJdvk4tYuDkPL3fw_1hgT8Kk2hsjxPlcp6YUrru1LowBONk4IciSafI9M0J2QxyYdC5YBd5sCE6YqvbjMW9YSGfkiQ8Nwo3yoxO9_9ioA1Eqx-yNYH2Sl-OqQLvP_V4KmLM463WVZFv07jqW5Kl4U"/>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-primary dark:text-inverse-primary tracking-tight">FinanceFlow</h1>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full active:scale-95 transition-transform hover:bg-surface-container-low">
+<span class="material-symbols-outlined text-primary dark:text-inverse-primary" data-icon="settings">settings</span>
+</button>
+</header>
+<main class="pt-24 pb-32 px-page_margin max-w-md mx-auto space-y-section_gap">
+<!-- Profile Section -->
+<section class="space-y-element_gap">
+<h2 class="font-label-md text-label-md text-on-surface-variant px-1">PROFILE</h2>
+<div class="paper-grain bg-surface-container-lowest rounded-xl p-inner_padding shadow-[0px_4px_20px_rgba(16,33,43,0.04)] border border-[#EFFBDB]">
+<div class="flex items-center gap-inner_padding">
+<div class="relative">
+<div class="w-16 h-16 rounded-full bg-secondary-container flex items-center justify-center overflow-hidden">
+<img alt="John Doe" class="w-full h-full object-cover" data-alt="A minimalist and stylish avatar representation of a young male professional. The image is set against a clean, soft-green background that matches the secondary-container token. The style is clean, modern, and high-fidelity digital art, conveying a sense of quiet confidence and approachability in a light-mode interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAknWYVz53bC4JIDnnjgo9DxaskuKCh4O3FbYanuPyxfl-lSqPH0Oksm7ey7W8JX1iD-rK4VJA6urFjCFP7P0_SZ4CFS0wRW85o3773oIHW7WCsh3r9jHwelQxkSuw21zoVkVbAc5pD03fKXritFU-EUSaIqk92z1cPNSf5n1GxQ2Lp9qVbUXnz3ul64veV8A3t5uYQ9rs9mUYDj6jOyvnbxjU1IvcWIEqv0Tx8abF2vs4YCHL-9n_B8qMmZeUXpeT3OK3SD2nXDLg"/>
+</div>
+<div class="absolute bottom-0 right-0 w-6 h-6 bg-primary text-on-primary rounded-full flex items-center justify-center border-2 border-surface-container-lowest">
+<span class="material-symbols-outlined text-[14px]" data-icon="edit">edit</span>
+</div>
+</div>
+<div>
+<p class="font-headline-md text-headline-md text-on-surface">John Doe</p>
+<p class="font-body-md text-body-md text-on-surface-variant">john.doe@financeflow.com</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Preferences Section -->
+<section class="space-y-element_gap">
+<h2 class="font-label-md text-label-md text-on-surface-variant px-1">PREFERENCES</h2>
+<div class="paper-grain bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(16,33,43,0.04)] border border-[#EFFBDB] overflow-hidden">
+<!-- Currency Row -->
+<div class="flex items-center justify-between p-inner_padding active:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="payments">payments</span>
+<span class="font-body-lg text-body-lg text-on-surface">Currency</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-md text-label-md text-primary">USD ($)</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+<div class="mx-inner_padding border-b border-dashed border-outline-variant"></div>
+<!-- Language Row -->
+<div class="flex items-center justify-between p-inner_padding active:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="language">language</span>
+<span class="font-body-lg text-body-lg text-on-surface">Language</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-md text-label-md text-primary">English (US)</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Security Section -->
+<section class="space-y-element_gap">
+<h2 class="font-label-md text-label-md text-on-surface-variant px-1">SECURITY</h2>
+<div class="paper-grain bg-surface-container-lowest rounded-xl p-inner_padding shadow-[0px_4px_20px_rgba(16,33,43,0.04)] border border-[#EFFBDB]">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="fingerprint">fingerprint</span>
+<div class="flex flex-col">
+<span class="font-body-lg text-body-lg text-on-surface">Biometric lock</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Require FaceID or Fingerprint</span>
+</div>
+</div>
+<div class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secondary"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Theme Toggle Section -->
+<section class="space-y-element_gap">
+<h2 class="font-label-md text-label-md text-on-surface-variant px-1">APPEARANCE</h2>
+<div class="paper-grain bg-surface-container-lowest rounded-xl p-inner_padding shadow-[0px_4px_20px_rgba(16,33,43,0.04)] border border-[#EFFBDB]">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="dark_mode">dark_mode</span>
+<span class="font-body-lg text-body-lg text-on-surface">Dark Mode</span>
+</div>
+<div class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secondary"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Danger Zone -->
+<button class="w-full py-4 px-inner_padding rounded-xl border border-error/20 flex items-center justify-center gap-2 text-error font-headline-md active:bg-error-container transition-colors">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span>Sign Out</span>
+</button>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe bg-surface dark:bg-surface shadow-[0px_-4px_20px_rgba(16,33,43,0.04)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline p-2 hover:opacity-80 active:translate-y-0.5 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline p-2 hover:opacity-80 active:translate-y-0.5 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="add_a_photo">add_a_photo</span>
+<span class="font-label-md text-label-md">Upload</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline p-2 hover:opacity-80 active:translate-y-0.5 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="forum">forum</span>
+<span class="font-label-md text-label-md">AI Chat</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-full px-5 py-1 hover:opacity-80 active:translate-y-0.5 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="analytics" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="font-label-md text-label-md">Reports</span>
+</a>
+</nav>
+</body></html>

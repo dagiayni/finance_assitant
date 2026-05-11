@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Work+Sans:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-surface": "#151c27",
+                    "tertiary-fixed": "#dbe7c8",
+                    "primary": "#00080e",
+                    "on-primary-fixed-variant": "#384954",
+                    "secondary-fixed": "#d4eba4",
+                    "primary-fixed-dim": "#b7c9d6",
+                    "on-secondary": "#ffffff",
+                    "outline-variant": "#c3c7cb",
+                    "on-surface-variant": "#43474b",
+                    "tertiary": "#030900",
+                    "surface-container-low": "#f0f3ff",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-container": "#7f8b70",
+                    "on-secondary-fixed": "#141f00",
+                    "on-background": "#151c27",
+                    "on-primary-fixed": "#0c1d27",
+                    "inverse-on-surface": "#ebf1ff",
+                    "on-tertiary-fixed": "#151e0b",
+                    "inverse-surface": "#2a313d",
+                    "error-container": "#ffdad6",
+                    "surface-container-highest": "#dce2f3",
+                    "secondary-fixed-dim": "#b9cf8a",
+                    "on-error": "#ffffff",
+                    "tertiary-container": "#19220e",
+                    "surface-dim": "#d3daea",
+                    "inverse-primary": "#b7c9d6",
+                    "surface-container-lowest": "#ffffff",
+                    "background": "#f9f9ff",
+                    "primary-container": "#10212b",
+                    "secondary-container": "#d4eba4",
+                    "on-tertiary-fixed-variant": "#404a33",
+                    "tertiary-fixed-dim": "#bfcbad",
+                    "on-secondary-container": "#586b32",
+                    "surface-container": "#e7eefe",
+                    "surface": "#f9f9ff",
+                    "on-secondary-fixed-variant": "#3b4d17",
+                    "surface-variant": "#dce2f3",
+                    "surface-bright": "#f9f9ff",
+                    "surface-tint": "#50616c",
+                    "on-primary-container": "#788995",
+                    "primary-fixed": "#d3e5f3",
+                    "outline": "#73777b",
+                    "error": "#ba1a1a",
+                    "surface-container-high": "#e2e8f8",
+                    "secondary": "#52652c",
+                    "on-tertiary": "#ffffff",
+                    "on-primary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "section_gap": "32px",
+                    "inner_padding": "20px",
+                    "page_margin": "24px",
+                    "element_gap": "16px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Manrope"],
+                    "label-sm": ["Work Sans"],
+                    "label-md": ["Work Sans"],
+                    "headline-lg": ["Manrope"],
+                    "display-price": ["Manrope"],
+                    "body-md": ["Manrope"],
+                    "body-lg": ["Manrope"]
+            },
+            "fontSize": {
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display-price": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>.paper-grain {
+    position: relative
+    }
+.paper-grain::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.02;
+    pointer-events: none;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuBOm5Mw64etq9xOKiy9uw7RX2bWXNvo9VtfsfVyXOX9UkXcEyJ-lyPc9s4rieYXOkJY9fn2BNDEgjN0gKC-m6xpZCf9-hDIhcd0SIWl5We9Erz9KEvD2gQu6UY8eqcu4qbIXF6vI-ppoE41TxfBPiFFLY0USwJ1EureYo07nVFiHIFAk0IxRjWM-r6lIyYcRCed8-lhF8oAnwgxEfk8BCGm7rO5AP1cS8mEN_4oeQzl8scLdpLvORcaqYDwOAzG0OUCMf6yGDDRgPo);
+    z-index: 1
+    }
+.custom-shadow {
+    shadow: 0 4px 20px rgba(16, 33, 43, 0.04)
+    }
+body {
+    background-color: #f9f9ff;
+    -webkit-font-smoothing: antialiased
+    }</style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-on-surface">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full bg-background flex justify-between items-center px-page_margin h-16 w-full z-50">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center overflow-hidden">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A clean, professional avatar portrait of a modern business professional in a minimalist digital art style. The character is set against a soft, high-key background using the palette of ivory and pale blue, maintaining a light-mode aesthetic. The visual style is crisp and editorial, reflecting the quiet confidence and organized personality of a finance manager." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCU_TZZhfjNBkHgCairUmY-sRKfmYIuzCSEH4v79ZYjOutac7zdB-JWKaHfU0PP6-WIxl577lFJZolklMdD3MCPOu1sbavYvb8fMU0hIYSTTanjz6TabsoH6eJJh3wCzCLIHW_QIz5swmBUNA9d5-s67awR7uJO88Qm3rLNgcVr-lem2iTb80efOBTbixcInT3ETFOxaC9mVIj11LyNWa4rhYtVvvfzKaQ9WgzmN0rqmZBC-trQ55LjPlpJRHWDVjFhJvkhZVUl1_0"/>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-primary tracking-tight">FinanceFlow</h1>
+</div>
+<button class="material-symbols-outlined text-primary hover:bg-surface-container-low p-2 rounded-full active:scale-95 transition-transform">settings</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-20 pb-32 px-page_margin min-h-screen flex flex-col">
+<!-- Subtle Notice -->
+<div class="mb-section_gap flex justify-center">
+<div class="bg-surface-container-low px-4 py-2 rounded-full border border-tertiary-fixed/30">
+<p class="font-label-md text-label-md text-on-tertiary-fixed-variant text-center">Chat history is temporary and will clear after 30 minutes of inactivity.</p>
+</div>
+</div>
+<!-- Chat Area -->
+<div class="flex-grow flex flex-col gap-element_gap">
+<!-- Assistant Message -->
+<div class="flex flex-col items-start max-w-[85%]">
+<div class="paper-grain bg-tertiary-fixed text-on-tertiary-fixed-variant p-inner_padding rounded-xl rounded-tl-none shadow-[0px_4px_20px_rgba(16,33,43,0.04)] relative">
+<p class="font-body-md text-body-md">Hello! I'm your FinanceFlow Assistant. How can I help you manage your business cash flow today? I can analyze receipts, generate tax reports, or help you track expenses.</p>
+</div>
+<span class="mt-2 font-label-sm text-label-sm text-outline px-1">AI Assistant • Just now</span>
+</div>
+<!-- User Message -->
+<div class="flex flex-col items-end max-w-[85%] self-end">
+<div class="bg-primary text-white p-inner_padding rounded-xl rounded-tr-none shadow-md">
+<p class="font-body-md text-body-md">Can you show me a summary of my expenses from this month so far?</p>
+</div>
+<span class="mt-2 font-label-sm text-label-sm text-outline px-1">You • 2 min ago</span>
+</div>
+<!-- Assistant Detailed Response (Paper Module) -->
+<div class="flex flex-col items-start max-w-[90%]">
+<div class="paper-grain bg-white border border-secondary-fixed text-on-surface p-inner_padding rounded-xl rounded-tl-none shadow-[0px_4px_20px_rgba(16,33,43,0.04)] relative w-full">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<h3 class="font-headline-md text-headline-md text-secondary">October Spending</h3>
+</div>
+<div class="space-y-3">
+<div class="flex justify-between items-center py-2 border-b border-dashed border-secondary-fixed">
+<span class="font-body-md text-on-surface-variant">Office Supplies</span>
+<span class="font-headline-md text-primary">$1,240.00</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-dashed border-secondary-fixed">
+<span class="font-body-md text-on-surface-variant">Cloud Services</span>
+<span class="font-headline-md text-primary">$450.25</span>
+</div>
+<div class="flex justify-between items-center py-2">
+<span class="font-body-md text-on-surface-variant">Marketing</span>
+<span class="font-headline-md text-primary">$890.00</span>
+</div>
+</div>
+<div class="mt-4 pt-3 bg-secondary-container/30 rounded-lg p-3">
+<p class="font-label-md text-label-md text-on-secondary-container">Your spending is 12% lower than last month at this same date. Great job!</p>
+</div>
+</div>
+<span class="mt-2 font-label-sm text-label-sm text-outline px-1">AI Assistant • 1 min ago</span>
+</div>
+</div>
+<!-- Sticky Input Area -->
+<div class="fixed bottom-20 left-0 w-full px-page_margin pb-4 bg-background/80 backdrop-blur-sm">
+<div class="relative flex items-center gap-2">
+<div class="flex-grow flex items-center bg-white rounded-full border border-secondary-fixed shadow-[0px_4px_20px_rgba(16,33,43,0.04)] overflow-hidden">
+<input class="w-full bg-transparent border-none focus:ring-0 px-6 py-4 font-body-md text-on-surface placeholder-outline" placeholder="Ask about your finances..." type="text"/>
+<button class="p-3 mr-1 text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined">attach_file</span>
+</button>
+</div>
+<button class="bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center active:scale-95 transition-all shadow-lg">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe bg-surface shadow-[0px_-4px_20px_rgba(16,33,43,0.04)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:opacity-80 active:translate-y-0.5 transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:opacity-80 active:translate-y-0.5 transition-all" href="#">
+<span class="material-symbols-outlined">add_a_photo</span>
+<span class="font-label-md text-label-md">Upload</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-5 py-1 hover:opacity-80 active:translate-y-0.5 transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">chat_bubble</span>
+<span class="font-label-md text-label-md">AI Chat</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:opacity-80 active:translate-y-0.5 transition-all" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-md text-label-md">Reports</span>
+</a>
+</nav>
+</body></html>

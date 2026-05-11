@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&amp;family=Work+Sans:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-primary": "#b7c9d6",
+                    "error-container": "#ffdad6",
+                    "background": "#f9f9ff",
+                    "secondary-container": "#d4eba4",
+                    "on-error": "#ffffff",
+                    "tertiary-container": "#19220e",
+                    "on-surface": "#151c27",
+                    "surface-dim": "#d3daea",
+                    "outline-variant": "#c3c7cb",
+                    "primary-fixed-dim": "#b7c9d6",
+                    "secondary-fixed": "#d4eba4",
+                    "on-secondary-fixed": "#141f00",
+                    "tertiary": "#030900",
+                    "outline": "#73777b",
+                    "on-tertiary-fixed-variant": "#404a33",
+                    "surface-container-high": "#e2e8f8",
+                    "on-secondary-container": "#586b32",
+                    "error": "#ba1a1a",
+                    "primary-container": "#10212b",
+                    "on-background": "#151c27",
+                    "on-tertiary-fixed": "#151e0b",
+                    "surface-bright": "#f9f9ff",
+                    "surface": "#f9f9ff",
+                    "on-primary-container": "#788995",
+                    "on-tertiary-container": "#7f8b70",
+                    "tertiary-fixed-dim": "#bfcbad",
+                    "on-primary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-fixed": "#0c1d27",
+                    "secondary": "#52652c",
+                    "surface-container-low": "#f0f3ff",
+                    "on-secondary": "#ffffff",
+                    "secondary-fixed-dim": "#b9cf8a",
+                    "primary": "#00080e",
+                    "tertiary-fixed": "#dbe7c8",
+                    "surface-container": "#e7eefe",
+                    "on-error-container": "#93000a",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-fixed-variant": "#3b4d17",
+                    "surface-tint": "#50616c",
+                    "on-primary-fixed-variant": "#384954",
+                    "on-surface-variant": "#43474b",
+                    "surface-variant": "#dce2f3",
+                    "primary-fixed": "#d3e5f3",
+                    "surface-container-highest": "#dce2f3",
+                    "inverse-surface": "#2a313d",
+                    "inverse-on-surface": "#ebf1ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "inner_padding": "20px",
+                    "section_gap": "32px",
+                    "element_gap": "16px",
+                    "page_margin": "24px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Manrope"],
+                    "body-md": ["Manrope"],
+                    "body-lg": ["Manrope"],
+                    "display-price": ["Manrope"],
+                    "label-md": ["Work Sans"],
+                    "label-sm": ["Work Sans"],
+                    "headline-lg": ["Manrope"]
+            },
+            "fontSize": {
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-price": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+                    "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>.paper-texture {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuCd-Zbb_ItPb1fXsotr0qDOQiEe8b3yttupPWbI_mZ8F5Ss6JTeQO51ZBM490bewPxIN-_4AgvAgn0XfiH7eulamVYGgESTSS3ukC4ayg8g1dmK9LAE3uyagux0k0Ot0M5_hwocT-vfGwH6mmlqARWq34jzUfjOB1mHVAWqT8gG_w3abka9L1zelI4t_8qOx53yuVBjVT7XuH_vkoTDslpEplxJ3IECMC6j3pcFC9waKwv85gwl0FlJCjwlOoRlXk6weoofRqAtKFs);
+    background-repeat: repeat;
+    opacity: 0.02;
+    pointer-events: none
+    }
+.perforated-line {
+    background-image: linear-gradient(to right, #dce2f3 50%, transparent 50%);
+    background-size: 8px 1px;
+    background-repeat: repeat-x
+    }
+body {
+    -webkit-tap-highlight-color: transparent
+    }</style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background font-body-md text-on-background min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full bg-background z-50 flex justify-between items-center px-page_margin h-16 w-full">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center overflow-hidden">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a business executive with a friendly expression, set against a clean, minimalist studio background. The lighting is soft and high-key, reflecting a modern light-mode aesthetic. The image uses a neutral color palette of soft whites and cool grays to convey quiet confidence and professional reliability." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHB9onv4zC4F24jVm1Njw12dS94i7lJhNhsC-t5fKGl4lFKjdAYWBAVz7sSzpfa54Gm60kUM6fiogpoOz3HBVGAaNnINKd-ps0SmjN_G_oQ67tVrpxaNRZDNxhPhDCTZ_rTU5aCKxNn-VAAkHYnM9bLLpxBqjKPcc3DJMmSrX5h6-pybguKUxaPRXmr1JMI6zzdLEaEgy30rJZveYWnx-9AiyE2drJxiBK2lwYVglpOzJKPgNECoBpUwaSOh3a0r6eEtv762UYbO4"/>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-primary tracking-tight">FinanceFlow</h1>
+</div>
+<button class="material-symbols-outlined text-primary hover:bg-surface-container-low active:scale-95 transition-transform p-2 rounded-full" data-icon="settings">settings</button>
+</header>
+<!-- Content Canvas -->
+<main class="mt-20 px-page_margin flex flex-col gap-section_gap">
+<!-- Hero Summary Section -->
+<section class="flex flex-col gap-element_gap">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface-variant">FINANCIAL INSIGHTS</span>
+<h2 class="font-headline-md text-headline-md text-primary">Monthly Reports</h2>
+</div>
+<!-- Featured Download Action -->
+<div class="relative bg-white rounded-xl p-inner_padding shadow-[0px_4px_20px_rgba(16,33,43,0.04)] overflow-hidden border border-[#EFFBDB]">
+<div class="absolute inset-0 paper-texture"></div>
+<div class="relative z-10 flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<div>
+<p class="font-headline-md text-headline-md text-primary">October 2023</p>
+<p class="font-label-md text-label-md text-on-surface-variant">Ready for download</p>
+</div>
+<div class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-sm text-label-sm">Approved</span>
+</div>
+</div>
+<div class="perforated-line h-[1px] w-full"></div>
+<button class="w-full bg-primary text-on-primary py-4 rounded-xl font-headline-md flex items-center justify-center gap-3 active:translate-y-0.5 transition-all">
+<span class="material-symbols-outlined">download</span>
+                        Download Monthly PDF
+                    </button>
+</div>
+</div>
+</section>
+<!-- Reports List -->
+<section class="flex flex-col gap-element_gap">
+<div class="flex justify-between items-center">
+<h3 class="font-label-md text-label-md text-on-surface-variant">RECENT HISTORY</h3>
+<span class="font-label-sm text-label-sm text-secondary">View All</span>
+</div>
+<div class="flex flex-col gap-3">
+<!-- Report Item 1: Pending -->
+<div class="bg-white rounded-xl p-inner_padding shadow-[0px_4px_20px_rgba(16,33,43,0.04)] border border-[#EFFBDB] flex justify-between items-center">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="description">description</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-lg text-body-lg text-primary font-bold">Monthly Profit - Sep 2023</span>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-outline text-[14px]" data-icon="schedule">schedule</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Pending Review</span>
+</div>
+</div>
+</div>
+<button class="material-symbols-outlined text-outline" data-icon="more_vert">more_vert</button>
+</div>
+<!-- Report Item 2: Approved -->
+<div class="bg-white rounded-xl p-inner_padding shadow-[0px_4px_20px_rgba(16,33,43,0.04)] border border-[#EFFBDB] flex justify-between items-center">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="analytics">analytics</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-lg text-body-lg text-primary font-bold">Tax Summary - Q3 2023</span>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-secondary text-[14px]" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Approved</span>
+</div>
+</div>
+</div>
+<button class="material-symbols-outlined text-outline" data-icon="more_vert">more_vert</button>
+</div>
+<!-- Report Item 3: Rejected -->
+<div class="bg-white rounded-xl p-inner_padding shadow-[0px_4px_20px_rgba(16,33,43,0.04)] border border-[#EFFBDB] flex justify-between items-center">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="receipt_long">receipt_long</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-lg text-body-lg text-primary font-bold">Expenses - Aug 2023</span>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-error text-[14px]" data-icon="error" style="font-variation-settings: 'FILL' 1;">error</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Rejected</span>
+</div>
+</div>
+</div>
+<button class="material-symbols-outlined text-outline" data-icon="more_vert">more_vert</button>
+</div>
+<!-- Report Item 4: Approved -->
+<div class="bg-white rounded-xl p-inner_padding shadow-[0px_4px_20px_rgba(16,33,43,0.04)] border border-[#EFFBDB] flex justify-between items-center opacity-70">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="history_edu">history_edu</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-lg text-body-lg text-primary font-bold">Annual Forecast - 2023</span>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-secondary text-[14px]" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Approved</span>
+</div>
+</div>
+</div>
+<button class="material-symbols-outlined text-outline" data-icon="more_vert">more_vert</button>
+</div>
+</div>
+</section>
+<!-- Informational Banner -->
+<section class="bg-surface-container-low rounded-xl p-inner_padding border border-surface-variant">
+<div class="flex gap-4 items-start">
+<span class="material-symbols-outlined text-primary" data-icon="lightbulb">lightbulb</span>
+<div class="flex flex-col gap-1">
+<p class="font-headline-md text-[16px] leading-tight text-primary">Need a custom range?</p>
+<p class="font-body-md text-on-surface-variant">You can generate on-demand reports by tapping the 'Upload' icon and selecting 'Generate Custom Statement'.</p>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 bg-surface flex justify-around items-center px-4 py-3 pb-safe shadow-[0px_-4px_20px_rgba(16,33,43,0.04)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:opacity-80 active:translate-y-0.5 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:opacity-80 active:translate-y-0.5 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="add_a_photo">add_a_photo</span>
+<span class="font-label-md text-label-md">Upload</span>
+</a><a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:opacity-80 active:translate-y-0.5 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+<span class="font-label-md text-label-md">AI Chat</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-5 py-1 hover:opacity-80 active:translate-y-0.5 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="analytics" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="font-label-md text-label-md">Reports</span>
+</a>
+</nav>
+</body></html>

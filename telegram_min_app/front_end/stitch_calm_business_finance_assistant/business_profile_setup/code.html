@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Work+Sans:wght@400;500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-container": "#ffdad6",
+                        "background": "#f9f9ff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#788995",
+                        "surface-container": "#e7eefe",
+                        "surface": "#f9f9ff",
+                        "on-primary": "#ffffff",
+                        "primary-fixed": "#d3e5f3",
+                        "tertiary": "#030900",
+                        "on-tertiary-fixed-variant": "#404a33",
+                        "tertiary-container": "#19220e",
+                        "surface-variant": "#dce2f3",
+                        "surface-dim": "#d3daea",
+                        "on-surface-variant": "#43474b",
+                        "primary-fixed-dim": "#b7c9d6",
+                        "on-tertiary-container": "#7f8b70",
+                        "surface-container-highest": "#dce2f3",
+                        "on-secondary-container": "#586b32",
+                        "on-primary-fixed-variant": "#384954",
+                        "on-error-container": "#93000a",
+                        "surface-container-low": "#f0f3ff",
+                        "surface-container-high": "#e2e8f8",
+                        "on-secondary-fixed-variant": "#3b4d17",
+                        "tertiary-fixed-dim": "#bfcbad",
+                        "on-tertiary-fixed": "#151e0b",
+                        "inverse-surface": "#2a313d",
+                        "outline": "#73777b",
+                        "primary": "#00080e",
+                        "secondary-fixed": "#d4eba4",
+                        "on-primary-fixed": "#0c1d27",
+                        "surface-tint": "#50616c",
+                        "on-error": "#ffffff",
+                        "secondary-fixed-dim": "#b9cf8a",
+                        "primary-container": "#10212b",
+                        "on-secondary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed": "#dbe7c8",
+                        "surface-bright": "#f9f9ff",
+                        "secondary": "#52652c",
+                        "inverse-on-surface": "#ebf1ff",
+                        "on-background": "#151c27",
+                        "on-secondary-fixed": "#141f00",
+                        "inverse-primary": "#b7c9d6",
+                        "outline-variant": "#c3c7cb",
+                        "on-surface": "#151c27",
+                        "secondary-container": "#d4eba4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "page_margin": "24px",
+                        "inner_padding": "20px",
+                        "element_gap": "16px",
+                        "section_gap": "32px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Manrope"],
+                        "label-sm": ["Work Sans"],
+                        "label-md": ["Work Sans"],
+                        "headline-md": ["Manrope"],
+                        "headline-lg": ["Manrope"],
+                        "display-price": ["Manrope"],
+                        "body-lg": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "headline-lg": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display-price": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24
+    }
+.paper-texture {
+    position: relative
+    }
+.paper-texture::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.02;
+    pointer-events: none;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuBZm48VUbQ_hxsZJCyGVNmKRBVWttc9HwUOsJWNJr4xHsFtE9nPx8m4uS4GJ4AZYRsZ3Xl4bUlNLz9y3198QvQjfj3JBcOYvQm8N2mG9koeI9mfRzQq5arHiKp95UCe6SH6VpUV1BqUVXXi1cucJS9E_8P-9cKlg9q7KhnpJWTDMJ4xVpqAmZagsB3_SScXeXl6G7D0_Ei1vXMvm3iUsKp4mh1NZjXV4kOVEtdHSLEesuNEcXmgaRLaJ9vsnYeSJWxFkt11mg61wDM);
+    border-radius: inherit
+    }</style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background font-body-md text-on-background min-h-screen flex flex-col">
+<!-- Top AppBar (Generated from JSON guidance but modified for Task Context: Back button only for onboarding focus) -->
+<header class="flex justify-between items-center px-page_margin h-16 w-full z-50 fixed top-0 bg-background">
+<button class="active:scale-95 transition-transform p-2 -ml-2">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<div class="font-headline-lg text-headline-lg text-primary tracking-tight">FinanceFlow</div>
+<div class="w-10"></div> <!-- Spacer for balance -->
+</header>
+<main class="flex-1 px-page_margin pt-24 pb-12 flex flex-col max-w-lg mx-auto w-full">
+<!-- Header Section -->
+<section class="mb-section_gap">
+<h1 class="font-headline-lg text-headline-lg text-primary mb-2">Setup your business</h1>
+<p class="font-body-md text-on-surface-variant">Help us customize your financial dashboard by providing a few details about your company.</p>
+</section>
+<!-- Form Module -->
+<div class="paper-texture bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(16,33,43,0.04)] p-inner_padding flex flex-col gap-section_gap">
+<!-- Question 1: Business Name -->
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-secondary uppercase tracking-wider" for="business-name">Business Identity</label>
+<div class="font-body-lg text-body-lg text-primary mb-1">What is your business name?</div>
+<input class="w-full bg-transparent border-0 border-b border-surface-variant focus:ring-0 focus:border-secondary text-body-lg py-2 px-0 placeholder:text-outline-variant transition-colors" id="business-name" placeholder="e.g. Acme Studio" type="text"/>
+</div>
+<!-- Question 2: Industry -->
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-secondary uppercase tracking-wider" for="industry">Category</label>
+<div class="font-body-lg text-body-lg text-primary mb-1">What industry do you operate in?</div>
+<div class="relative">
+<select class="w-full bg-transparent border-0 border-b border-surface-variant focus:ring-0 focus:border-secondary text-body-lg py-2 px-0 appearance-none cursor-pointer transition-colors" id="industry">
+<option disabled="" selected="" value="">Select an industry</option>
+<option value="tech">Technology &amp; Software</option>
+<option value="retail">Retail &amp; E-commerce</option>
+<option value="creative">Creative Services</option>
+<option value="healthcare">Healthcare</option>
+<option value="consulting">Consulting</option>
+<option value="other">Other</option>
+</select>
+<span class="material-symbols-outlined absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+</div>
+</div>
+<!-- Question 3: Revenue -->
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-secondary uppercase tracking-wider" for="revenue">Financial Scale</label>
+<div class="font-body-lg text-body-lg text-primary mb-1">What is your estimated monthly revenue?</div>
+<div class="flex items-center gap-2 border-b border-surface-variant focus-within:border-secondary transition-colors">
+<span class="text-body-lg text-outline">$</span>
+<input class="w-full bg-transparent border-0 focus:ring-0 text-body-lg py-2 px-0 placeholder:text-outline-variant" id="revenue" placeholder="0.00" type="number"/>
+</div>
+</div>
+</div>
+<!-- Decorative Progress Indicator -->
+<div class="flex gap-2 mt-section_gap justify-center">
+<div class="h-1 w-8 rounded-full bg-primary"></div>
+<div class="h-1 w-8 rounded-full bg-surface-variant"></div>
+<div class="h-1 w-8 rounded-full bg-surface-variant"></div>
+</div>
+<!-- Action Section -->
+<div class="mt-auto pt-section_gap flex flex-col gap-element_gap">
+<button class="w-full bg-primary text-on-primary font-headline-md text-headline-md py-4 rounded-xl active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+                Complete Setup
+                <span class="material-symbols-outlined" data-weight="fill">check_circle</span>
+</button>
+<button class="w-full py-2 font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors active:opacity-60">
+                Skip for Now
+            </button>
+</div>
+<!-- Contextual Visual Aid (Asymmetric Bento Style) -->
+<section class="mt-section_gap grid grid-cols-2 gap-4">
+<div class="col-span-1 paper-texture bg-secondary-container/30 p-4 rounded-xl flex flex-col justify-between h-32 border border-secondary-container">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">security</span>
+<p class="font-label-sm text-label-sm text-on-secondary-container">Encrypted &amp; Private Data</p>
+</div>
+<div class="col-span-1 bg-surface-container-high rounded-xl overflow-hidden h-32 relative">
+<img alt="Financial clarity" class="w-full h-full object-cover grayscale opacity-40" data-alt="A macro photograph of clean, white architectural paper with crisp shadows. The lighting is bright and airy, reflecting a professional yet calm financial atmosphere. The composition is minimalist, featuring soft grey textures and a single sharp edge representing organization and quiet confidence. The overall mood is sophisticated and organized." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOSRIRTUDACRsrxt-uTyzJVsBA_wNhZOcN8zNk_recDeAGpO3p9nNaEEYlD-H95_HFBWfPVyksGnXoCKPsUFZNDbhaGdiz1Dr7p_o1DhNdQaKwRB-CS53MjgQrSw4Qqe7BqZnY-FMUM95JveV7nJklDBe39h5tk_9xwq-PZjtIJFW0Clm30AQ1fbFEHWV-I3cTFDO5y8qzol-opowiqP_h9C9UWH025kXEK17P1beKu_gbWNAlOFEPo8sYR9xwL6SXSMj71LnbedE"/>
+<div class="absolute inset-0 p-4 flex items-end">
+<p class="font-label-sm text-label-sm text-primary">Simplified Insights</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Nav Suppressed for Onboarding as per "The Destination Rule" -->
+</body></html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>FinanceFlow Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Work+Sans:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-container": "#ffdad6",
+                        "background": "#f9f9ff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#788995",
+                        "surface-container": "#e7eefe",
+                        "surface": "#f9f9ff",
+                        "on-primary": "#ffffff",
+                        "primary-fixed": "#d3e5f3",
+                        "tertiary": "#030900",
+                        "on-tertiary-fixed-variant": "#404a33",
+                        "tertiary-container": "#19220e",
+                        "surface-variant": "#dce2f3",
+                        "surface-dim": "#d3daea",
+                        "on-surface-variant": "#43474b",
+                        "primary-fixed-dim": "#b7c9d6",
+                        "on-tertiary-container": "#7f8b70",
+                        "surface-container-highest": "#dce2f3",
+                        "on-secondary-container": "#586b32",
+                        "on-primary-fixed-variant": "#384954",
+                        "on-error-container": "#93000a",
+                        "surface-container-low": "#f0f3ff",
+                        "surface-container-high": "#e2e8f8",
+                        "on-secondary-fixed-variant": "#3b4d17",
+                        "tertiary-fixed-dim": "#bfcbad",
+                        "on-tertiary-fixed": "#151e0b",
+                        "inverse-surface": "#2a313d",
+                        "outline": "#73777b",
+                        "primary": "#00080e",
+                        "secondary-fixed": "#d4eba4",
+                        "on-primary-fixed": "#0c1d27",
+                        "surface-tint": "#50616c",
+                        "on-error": "#ffffff",
+                        "secondary-fixed-dim": "#b9cf8a",
+                        "primary-container": "#10212b",
+                        "on-secondary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed": "#dbe7c8",
+                        "surface-bright": "#f9f9ff",
+                        "secondary": "#52652c",
+                        "inverse-on-surface": "#ebf1ff",
+                        "on-background": "#151c27",
+                        "on-secondary-fixed": "#141f00",
+                        "inverse-primary": "#b7c9d6",
+                        "outline-variant": "#c3c7cb",
+                        "on-surface": "#151c27",
+                        "secondary-container": "#d4eba4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "page_margin": "24px",
+                        "inner_padding": "20px",
+                        "element_gap": "16px",
+                        "section_gap": "32px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Manrope"],
+                        "label-sm": ["Work Sans"],
+                        "label-md": ["Work Sans"],
+                        "headline-md": ["Manrope"],
+                        "headline-lg": ["Manrope"],
+                        "display-price": ["Manrope"],
+                        "body-lg": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "headline-lg": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display-price": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>.paper-texture {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuCMQQHroAVtBSM7AFJoSO5ieEDBrE3eXovtEoRrf_1uF9G_gcPw4W6_otUqJROzzMzmfGPAhbnI75yBoLh4V2UIJiUxOcRknXWJl_reV8bnnQQLXAw8MjWHfyUztAo-ecRkbgVYcXq-rQ9sGjU-bAtMG-yl85qRKY4mYynH1E2LjBW6T5eerhGPowD3EUTneigsiZ2_0TA6cLsrupl-KMm4kGc-EsVogQmsMXZjjvuLcltorLQybFYm67IeX45m_94jNukqxuyqAPc);
+    opacity: 0.02;
+    pointer-events: none
+    }
+.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24
+    }</style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background min-h-screen font-body-md flex flex-col items-center justify-center">
+<!-- Login Content Canvas -->
+<main class="w-full max-w-md px-page_margin flex flex-col items-center">
+<!-- Brand Identity Section -->
+<header class="mb-section_gap flex flex-col items-center text-center">
+<div class="w-20 h-20 bg-primary rounded-xl flex items-center justify-center mb-6 shadow-lg overflow-hidden relative">
+<img alt="" class="w-12 h-12 object-contain invert" data-alt="A minimalist architectural brand logo for a finance app, featuring sharp geometric lines forming an abstract 'F'. The logo is crisp white against a deep navy-teal background, embodying quiet confidence and professional authority. Soft studio lighting highlights the sharp edges, creating a premium and modern tech-forward visual identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFgvYbxuyhWmBTRWuGDD_VwNfrK69OM4is1xlTSxv-WC6zHXQ-TlXHOoaYReuugMu9-0VYZMVrKp6HFlZWCpvprhUhiii8fQSJj77_eyhgI3wyL4buXDx2NK4FnSIACV4thdcvWFnxDrgHN43FV8ginfNEFsR5HeIY044wrGjXOeiISNFSJ-_htXc8t5EhKAITcxq4ygmF8tEaOkswn81gMYFBREIx_mneU1yPgbHVM9-Xs5p_pMRb5_bjG5N3SrH7WxZbx9Ci8J0"/>
+<div class="absolute inset-0 paper-texture"></div>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-primary tracking-tight mb-2">FinanceFlow</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-[280px]">
+                Navigate your financial complexity with quiet confidence.
+            </p>
+</header>
+<!-- Main Interaction Module -->
+<section class="w-full bg-surface-container-lowest rounded-xl p-inner_padding border border-surface-container relative shadow-[0px_4px_20px_rgba(16,33,43,0.04)]">
+<div class="absolute inset-0 paper-texture rounded-xl"></div>
+<div class="relative z-10 flex flex-col space-y-element_gap">
+<!-- Telegram Login Button -->
+<button class="w-full h-14 bg-primary text-on-primary rounded-lg flex items-center justify-center gap-3 active:scale-95 transition-transform">
+<span class="material-symbols-outlined" data-icon="send" style="font-variation-settings: 'FILL' 1;">send</span>
+<span class="font-headline-md text-headline-md font-semibold">Sign Up with Telegram</span>
+</button>
+<!-- Divider -->
+<!-- Secondary Option -->
+</div>
+</section>
+<!-- Trust Signals / Footer -->
+<footer class="mt-section_gap text-center space-y-4">
+<div class="flex items-center justify-center gap-6 opacity-60">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]" data-icon="lock">lock</span>
+<span class="font-label-sm text-label-sm">Secure</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]" data-icon="shield">shield</span>
+<span class="font-label-sm text-label-sm">Privacy First</span>
+</div>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant px-page_margin">
+                By logging in, you agree to FinanceFlow's Terms of Service and Privacy Policy.
+            </p>
+</footer>
+</main>
+<!-- Visual Background Element (Subtle Gradient) -->
+<div class="fixed inset-0 -z-10 pointer-events-none opacity-40">
+<div class="absolute top-[-10%] right-[-10%] w-96 h-96 bg-secondary-container rounded-full blur-[120px]"></div>
+<div class="absolute bottom-[-10%] left-[-10%] w-96 h-96 bg-primary-fixed rounded-full blur-[120px]"></div>
+</div>
+</body></html>
