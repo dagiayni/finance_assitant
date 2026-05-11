@@ -1,24 +1,78 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Layout from "@/components/Layout";
 import Navbar from "@/components/Navbar";
 import BottomNav from "@/components/BottomNav";
 import { Card, Button } from "@/components/UI";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function UploadPage() {
   const [step, setStep] = useState<'upload' | 'verify'>('upload');
   const [classification, setClassification] = useState<'expense' | 'income'>('expense');
+  const [isLiveCameraOpen, setIsLiveCameraOpen] = useState(false);
 
   const cameraInputRef = useRef<HTMLInputElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const streamRef = useRef<MediaStream | null>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       setStep('verify');
     }
   };
+
+  const startCamera = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ 
+        video: { facingMode: "environment" }, 
+        audio: false 
+      });
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+        streamRef.current = stream;
+        setIsLiveCameraOpen(true);
+      }
+    } catch (err) {
+      console.error("Error accessing camera:", err);
+      // Fallback to native file input if getUserMedia fails
+      cameraInputRef.current?.click();
+    }
+  };
+
+  const stopCamera = () => {
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach(track => track.stop());
+      streamRef.current = null;
+    }
+    setIsLiveCameraOpen(false);
+  };
+
+  const capturePhoto = () => {
+    if (videoRef.current && canvasRef.current) {
+      const video = videoRef.current;
+      const canvas = canvasRef.current;
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      const context = canvas.getContext("2d");
+      if (context) {
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        stopCamera();
+        setStep('verify');
+      }
+    }
+  };
+
+  // Clean up camera stream on unmount
+  useEffect(() => {
+    return () => {
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach(track => track.stop());
+      }
+    };
+  }, []);
 
   return (
     <Layout showGradients={false}>
@@ -41,6 +95,46 @@ export default function UploadPage() {
           onChange={handleFileChange} 
         />
 
+        {/* Live Camera Overlay */}
+        <AnimatePresence>
+          {isLiveCameraOpen && (
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[100] bg-black flex flex-col"
+            >
+              <div className="relative flex-1 bg-black">
+                <video 
+                  ref={videoRef} 
+                  autoPlay 
+                  playsInline 
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 pointer-events-none border-[30px] border-black/20">
+                  <div className="w-full h-full border-2 border-white/30 rounded-3xl" />
+                </div>
+                <button 
+                  onClick={stopCamera}
+                  className="absolute top-10 right-6 w-12 h-12 rounded-full bg-black/40 flex items-center justify-center text-white backdrop-blur-md"
+                >
+                  <span className="material-symbols-outlined text-3xl">close</span>
+                </button>
+              </div>
+              <div className="h-48 bg-black flex flex-col items-center justify-center gap-4">
+                <p className="text-white/60 text-xs font-work-sans uppercase tracking-widest">Position receipt within frame</p>
+                <button 
+                  onClick={capturePhoto}
+                  className="w-20 h-20 rounded-full border-4 border-white flex items-center justify-center active:scale-90 transition-transform"
+                >
+                  <div className="w-16 h-16 rounded-full bg-white" />
+                </button>
+              </div>
+              <canvas ref={canvasRef} className="hidden" />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {step === 'upload' ? (
           <motion.div 
             initial={{ opacity: 0 }}
@@ -54,20 +148,19 @@ export default function UploadPage() {
 
             <section className="flex flex-col gap-4">
               <Card 
-                className="aspect-square flex flex-col items-center justify-center p-section-gap border-dashed border-2 border-outline-variant bg-surface-container-low cursor-pointer overflow-hidden relative group" 
+                className="aspect-square flex flex-col items-center justify-center p-12 border-dashed border-2 border-primary/20 bg-primary/5 cursor-pointer overflow-hidden relative group rounded-3xl transition-all hover:bg-primary/10 active:scale-[0.98] text-center" 
                 paperGrain
-                onClick={() => cameraInputRef.current?.click()}
+                onClick={startCamera}
               >
-                <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity" />
                 <motion.div 
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-20 h-20 rounded-full bg-primary flex items-center justify-center mb-4 relative z-10 shadow-lg"
+                  className="w-24 h-24 rounded-full bg-primary flex items-center justify-center mb-6 relative z-10 shadow-2xl"
                 >
-                  <span className="material-symbols-outlined text-on-primary text-4xl" style={{ fontVariationSettings: "'FILL' 1" }}>add_a_photo</span>
+                  <span className="material-symbols-outlined text-on-primary text-5xl" style={{ fontVariationSettings: "'FILL' 1" }}>add_a_photo</span>
                 </motion.div>
-                <p className="font-manrope font-semibold text-primary relative z-10">Tap to take a photo</p>
-                <p className="font-work-sans text-xs text-outline mt-2 text-center relative z-10">Supports JPG, PNG</p>
+                <p className="font-manrope text-xl font-bold text-primary relative z-10">Snap Photo</p>
+                <p className="font-work-sans text-sm text-outline mt-2 max-w-[200px] relative z-10 mx-auto">Point at your receipt and we'll do the rest.</p>
               </Card>
 
               <div className="grid grid-cols-2 gap-4">
@@ -159,10 +252,7 @@ export default function UploadPage() {
 
               <div className="flex flex-col gap-3 mt-4">
                 <Button variant="primary" icon="check_circle" onClick={() => setStep('upload')}>Approve Receipt</Button>
-                <Button variant="outline" onClick={() => {
-                  setStep('upload');
-                  setTimeout(() => cameraInputRef.current?.click(), 100);
-                }}>Retake Photo</Button>
+                <Button variant="outline" onClick={startCamera}>Retake Photo</Button>
               </div>
             </Card>
           </motion.div>
