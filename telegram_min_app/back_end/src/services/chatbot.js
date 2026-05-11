@@ -1,21 +1,15 @@
 const axios = require('axios');
 const config = require('../config/env');
 const logger = require('../config/logger');
-const { query } = require('../config/database');
+const { queryReceipts } = require('./pinecone');
 
 const answerFinancialQuery = async (businessId, userQuery) => {
   try {
-    // 1. Fetch relevant receipts (For MVP, we fetch recent ones to provide context)
-    // In production, this would use Pinecone vector search
-    const { rows: contextReceipts } = await query(
-      `SELECT vendor_name, date, total_amount, type FROM receipts 
-       WHERE business_id = $1 AND status = 'approved' 
-       ORDER BY date DESC LIMIT 20`,
-      [businessId]
-    );
+    // 1. Fetch relevant receipts using Pinecone vector search
+    const matches = await queryReceipts(userQuery);
 
-    const contextText = contextReceipts.map(r => 
-      `${r.date}: ${r.vendor_name} - ${r.total_amount} ETB (${r.type})`
+    const contextText = matches.map(r => 
+      `${r.date}: ${r.vendor_name} - ${r.total_amount} ${r.currency} (${r.type})`
     ).join('\n');
 
     const prompt = `

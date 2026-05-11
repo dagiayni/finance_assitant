@@ -1,9 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const { authMiddleware, ownerOnly } = require('../middleware/auth');
-const Receipt = require('../models/receiptsSheets');
+const { authMiddleware } = require('../middleware/auth');
 const { extractReceiptData } = require('../services/receiptExtractor');
+const { upsertReceipt } = require('../services/pinecone');
+const bot = require('../services/telegramBot');
+const config = require('../config/env');
 const logger = require('../config/logger');
+const { v4: uuidv4 } = require('uuid');
 
 // POST /api/receipts/upload
 router.post('/upload', authMiddleware, async (req, res) => {
@@ -14,31 +17,19 @@ router.post('/upload', authMiddleware, async (req, res) => {
     // Step 1 & 2: OCR + AI Extraction
     const extractedData = await extractReceiptData(imageBase64);
     
-    // Step 4: Classify (Simplified for Sheets MVP)
-    const type = 'expense'; // Default to expense if no master TIN comparison for now
-    
-    // Step 5: Save to Google Sheets
-    const receipt = await Receipt.create({
-      uploaded_by: req.user.telegram_id, // Use telegram_id for Sheets MVP
-      type,
+    // Return data for front-end to display/edit
+    res.json({
+      id: uuidv4(),
       vendor_name: extractedData.vendor_name,
       vendor_tin: extractedData.vendor_tin,
-      date: extractedData.date,
       total_amount: extractedData.total_amount,
-      currency: extractedData.currency,
+      currency: extractedData.currency || 'ETB',
+      date: extractedData.date,
+      items: extractedData.items || [],
       raw_ocr_text: extractedData.raw_ocr_text,
       confidence: extractedData.confidence,
-      status: 'pending'
-    });
-
-    res.json({
-      receiptId: receipt.id,
-      vendor_name: receipt.vendor_name,
-      vendor_tin: receipt.vendor_tin,
-      total_amount: receipt.total_amount,
-      type: receipt.type,
-      confidence: receipt.confidence,
-      needsReview: (receipt.confidence || 0) < 0.75
+      type: 'expense',
+      needsReview: (extractedData.confidence || 0) < 0.75
     });
   } catch (err) {
     logger.error('Upload Route Error:', err);
@@ -46,22 +37,34 @@ router.post('/upload', authMiddleware, async (req, res) => {
   }
 });
 
-// POST /api/receipts/:id/approve
-router.post('/:id/approve', authMiddleware, ownerOnly, async (req, res) => {
+// POST /api/receipts/approve
+router.post('/approve', authMiddleware, async (req, res) => {
   try {
-    const { corrections } = req.body;
-    const receiptId = req.params.id;
-
-    const receipt = await Receipt.updateStatus(receiptId, {
+    const receiptData = req.body; // Full data from front-end
+    
+    // 1. Save to Pinecone
+    await upsertReceipt({
+      ...receiptData,
       status: 'approved',
-      approved_by: req.user.id,
-      corrections
+      approved_by: req.user.telegram_id,
+      approved_at: new Date().toISOString()
     });
 
-    // TODO: Google Drive upload, Pinecone embedding, Telegram notification (placeholder services for now)
-    
-    res.json({ receipt });
+    // 2. Notify Telegram Group
+    if (config.telegramGroupId) {
+      const message = `🔔 <b>New Approved Receipt</b>\n\n` +
+                      `<b>Vendor:</b> ${receiptData.vendor_name}\n` +
+                      `<b>Amount:</b> ${receiptData.total_amount} ${receiptData.currency}\n` +
+                      `<b>Date:</b> ${receiptData.date}\n` +
+                      `<b>Type:</b> ${receiptData.type}\n` +
+                      `<b>Approved By:</b> ${req.user.name || req.user.telegram_id}`;
+      
+      await bot.sendMessage(config.telegramGroupId, message);
+    }
+
+    res.json({ success: true, message: 'Receipt approved and saved to Pinecone' });
   } catch (err) {
+    logger.error('Approval Error:', err);
     res.status(500).json({ error: 'Approval failed', details: err.message });
   }
 });

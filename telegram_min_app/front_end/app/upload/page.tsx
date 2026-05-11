@@ -6,11 +6,15 @@ import Navbar from "@/components/Navbar";
 import BottomNav from "@/components/BottomNav";
 import { Card, Button } from "@/components/UI";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTelegram } from "@/hooks/useTelegram";
 
 export default function UploadPage() {
+  const { user, userId, initData } = useTelegram();
   const [step, setStep] = useState<'upload' | 'verify'>('upload');
   const [classification, setClassification] = useState<'expense' | 'income'>('expense');
   const [isLiveCameraOpen, setIsLiveCameraOpen] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [receiptData, setReceiptData] = useState<any>(null);
 
   const cameraInputRef = useRef<HTMLInputElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -18,9 +22,43 @@ export default function UploadPage() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
 
+  const handleUpload = async (base64: string) => {
+    setIsProcessing(true);
+    try {
+      const headers = {
+        'Content-Type': 'application/json',
+        'x-telegram-user-id': userId,
+        'Authorization': `Bearer ${initData}`
+      };
+
+      const response = await fetch('/api/receipts/upload', {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ imageBase64: base64 })
+      });
+
+      const data = await response.json();
+      if (data.error) throw new Error(data.error);
+
+      setReceiptData(data);
+      setStep('verify');
+    } catch (err) {
+      console.error("Upload failed:", err);
+      alert("Extraction failed. Please try again.");
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
-      setStep('verify');
+      const file = e.target.files[0];
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64 = (reader.result as string).split(',')[1];
+        handleUpload(base64);
+      };
+      reader.readAsDataURL(file);
     }
   };
 
@@ -57,10 +95,6 @@ export default function UploadPage() {
     setIsLiveCameraOpen(true);
   };
 
-  const stopCamera = () => {
-    setIsLiveCameraOpen(false);
-  };
-
   const capturePhoto = () => {
     if (videoRef.current && canvasRef.current) {
       const video = videoRef.current;
@@ -70,9 +104,37 @@ export default function UploadPage() {
       const context = canvas.getContext("2d");
       if (context) {
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        const base64 = canvas.toDataURL('image/jpeg').split(',')[1];
         setIsLiveCameraOpen(false);
-        setStep('verify');
+        handleUpload(base64);
       }
+    }
+  };
+
+  const handleApprove = async () => {
+    try {
+      setIsProcessing(true);
+      const headers = {
+        'Content-Type': 'application/json',
+        'x-telegram-user-id': userId,
+        'Authorization': `Bearer ${initData}`
+      };
+
+      const response = await fetch('/api/receipts/approve', {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ ...receiptData, type: classification, approved_by_name: user?.first_name || 'Owner' })
+      });
+
+      if (response.ok) {
+        alert("Receipt approved and saved!");
+        setStep('upload');
+        setReceiptData(null);
+      }
+    } catch (err) {
+      console.error("Approval failed:", err);
+    } finally {
+      setIsProcessing(false);
     }
   };
 
@@ -126,7 +188,7 @@ export default function UploadPage() {
                   <div className="w-full h-full border-2 border-white/30 rounded-3xl" />
                 </div>
                 <button 
-                  onClick={stopCamera}
+                  onClick={() => setIsLiveCameraOpen(false)}
                   className="absolute top-10 right-6 w-12 h-12 rounded-full bg-black/40 flex items-center justify-center text-white backdrop-blur-md"
                 >
                   <span className="material-symbols-outlined text-3xl">close</span>
@@ -168,37 +230,39 @@ export default function UploadPage() {
                   whileTap={{ scale: 0.95 }}
                   className="w-24 h-24 rounded-full bg-primary flex items-center justify-center mb-6 relative z-10 shadow-2xl"
                 >
-                  <span className="material-symbols-outlined text-on-primary text-5xl" style={{ fontVariationSettings: "'FILL' 1" }}>add_a_photo</span>
+                  <span className="material-symbols-outlined text-on-primary text-5xl" style={{ fontVariationSettings: "'FILL' 1" }}>{isProcessing ? 'sync' : 'add_a_photo'}</span>
                 </motion.div>
-                <p className="font-manrope text-xl font-bold text-primary relative z-10">Snap Photo</p>
+                <p className="font-manrope text-xl font-bold text-primary relative z-10">{isProcessing ? 'Analyzing...' : 'Snap Photo'}</p>
                 <p className="font-work-sans text-sm text-outline mt-2 max-w-[200px] relative z-10 mx-auto">Point at your receipt and we'll do the rest.</p>
               </Card>
 
               <div className="grid grid-cols-2 gap-4">
-                <Button variant="outline" icon="upload_file" onClick={() => fileInputRef.current?.click()}>Files</Button>
+                <Button variant="outline" icon="upload_file" onClick={() => fileInputRef.current?.click()} disabled={isProcessing}>Files</Button>
                 <Button variant="outline" icon="history">History</Button>
               </div>
             </section>
 
-            <section className="flex flex-col gap-element-gap">
-              <h3 className="font-manrope text-lg font-bold text-primary">Pending Verification</h3>
-              <Card className="p-inner-padding flex items-center gap-4 opacity-70" variant="low">
-                <div className="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center">
-                  <span className="material-symbols-outlined text-outline">description</span>
-                </div>
-                <div className="flex-1">
-                  <p className="font-manrope font-semibold text-sm">Processing Receipt...</p>
-                  <div className="w-full bg-surface-container-high h-1.5 rounded-full mt-2 overflow-hidden">
-                    <motion.div 
-                      initial={{ width: 0 }}
-                      animate={{ width: "70%" }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                      className="bg-primary h-full"
-                    />
+            {isProcessing && (
+              <section className="flex flex-col gap-element-gap">
+                <h3 className="font-manrope text-lg font-bold text-primary">Pending Verification</h3>
+                <Card className="p-inner-padding flex items-center gap-4 opacity-70" variant="low">
+                  <div className="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center">
+                    <span className="material-symbols-outlined text-outline animate-spin">sync</span>
                   </div>
-                </div>
-              </Card>
-            </section>
+                  <div className="flex-1">
+                    <p className="font-manrope font-semibold text-sm">Processing Receipt...</p>
+                    <div className="w-full bg-surface-container-high h-1.5 rounded-full mt-2 overflow-hidden">
+                      <motion.div 
+                        initial={{ width: 0 }}
+                        animate={{ width: "100%" }}
+                        transition={{ duration: 5 }}
+                        className="bg-primary h-full"
+                      />
+                    </div>
+                  </div>
+                </Card>
+              </section>
+            )}
           </motion.div>
         ) : (
           <motion.div 
@@ -213,32 +277,37 @@ export default function UploadPage() {
               </div>
               <div className="bg-surface-container-low px-3 py-1.5 rounded-full flex items-center gap-1.5 border border-outline-variant/30 shadow-sm mt-1">
                 <span className="material-symbols-outlined text-[14px] text-[#4CAF50]">schedule</span>
-                <span className="text-xs font-bold text-[#4CAF50]">Pending</span>
+                <span className="text-xs font-bold text-[#4CAF50]">Extracted</span>
               </div>
             </header>
 
             <Card className="p-6 flex flex-col gap-6 bg-surface-container-lowest border-outline-variant/30 soft-shadow-xl" paperGrain>
               <div className="flex flex-col items-center pt-2">
                 <span className="text-[10px] font-bold text-outline-variant tracking-[0.15em] uppercase mb-1">Total Amount</span>
-                <span className="font-manrope text-[40px] font-extrabold text-primary tracking-tight">$1,240.50</span>
+                <span className="font-manrope text-[40px] font-extrabold text-primary tracking-tight">{receiptData?.currency || 'ETB'} {receiptData?.total_amount}</span>
               </div>
 
               <div className="w-full border-t-2 border-dashed border-outline-variant/30 my-1"></div>
 
               <div className="flex flex-col gap-5">
                 <div className="flex flex-col gap-1 border-b border-outline-variant/20 pb-4">
+                  <span className="text-[11px] font-bold text-outline-variant tracking-wide">Vendor Name</span>
+                  <span className="font-manrope text-[15px] font-medium text-primary">{receiptData?.vendor_name || 'Unknown'}</span>
+                </div>
+
+                <div className="flex flex-col gap-1 border-b border-outline-variant/20 pb-4">
                   <span className="text-[11px] font-bold text-outline-variant tracking-wide">Tax Identification (TIN)</span>
-                  <span className="font-manrope text-[15px] font-medium text-primary">TAX-9988221-X</span>
+                  <span className="font-manrope text-[15px] font-medium text-primary">{receiptData?.vendor_tin || 'N/A'}</span>
                 </div>
                 
                 <div className="grid grid-cols-2 gap-4 border-b border-outline-variant/20 pb-4">
                   <div className="flex flex-col gap-1">
                     <span className="text-[11px] font-bold text-outline-variant tracking-wide">Tax Applied</span>
-                    <span className="font-manrope text-[15px] font-medium text-primary">$112.77</span>
+                    <span className="font-manrope text-[15px] font-medium text-primary">{receiptData?.tax || '0.00'}</span>
                   </div>
                   <div className="flex flex-col gap-1">
                     <span className="text-[11px] font-bold text-outline-variant tracking-wide">Date</span>
-                    <span className="font-manrope text-[15px] font-medium text-primary">24 Oct 2023</span>
+                    <span className="font-manrope text-[15px] font-medium text-primary">{receiptData?.date || 'N/A'}</span>
                   </div>
                 </div>
 
@@ -262,8 +331,8 @@ export default function UploadPage() {
               </div>
 
               <div className="flex flex-col gap-3 mt-4">
-                <Button variant="primary" icon="check_circle" onClick={() => setStep('upload')}>Approve Receipt</Button>
-                <Button variant="outline" onClick={startCamera}>Retake Photo</Button>
+                <Button variant="primary" icon="check_circle" onClick={handleApprove} disabled={isProcessing}>Approve Receipt</Button>
+                <Button variant="outline" onClick={() => setStep('upload')} disabled={isProcessing}>Back</Button>
               </div>
             </Card>
           </motion.div>

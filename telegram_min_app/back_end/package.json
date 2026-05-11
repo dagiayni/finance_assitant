@@ -18,7 +18,9 @@
     "pg": "^8.11.3",
     "pino": "^8.16.2",
     "pino-pretty": "^10.2.3",
-    "googleapis": "^126.0.0"
+    "googleapis": "^126.0.0",
+    "@pinecone-database/pinecone": "^1.1.2",
+    "@google/generative-ai": "^0.1.1"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"

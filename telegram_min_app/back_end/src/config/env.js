@@ -5,7 +5,8 @@ const requiredEnvVars = [
   'DATABASE_URL',
   'JWT_SECRET',
   'TELEGRAM_BOT_TOKEN',
-  'GROQ_API_KEY'
+  'GROQ_API_KEY',
+  'GOOGLE_API_KEY'
 ];
 
 const missingEnvVars = requiredEnvVars.filter((varName) => !process.env[varName]);
@@ -25,6 +26,7 @@ module.exports = {
   telegramBotToken: process.env.TELEGRAM_BOT_TOKEN,
   telegramGroupId: process.env.TELEGRAM_GROUP_ID,
   groqApiKey: process.env.GROQ_API_KEY,
+  googleApiKey: process.env.GOOGLE_API_KEY,
   ocrSpaceApiKey: process.env.OCR_SPACE_API_KEY,
   pineconeApiKey: process.env.PINECONE_API_KEY,
   pineconeIndex: process.env.PINECONE_INDEX || 'habesha-receipts',
