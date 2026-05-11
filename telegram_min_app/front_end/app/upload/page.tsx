@@ -24,29 +24,40 @@ export default function UploadPage() {
     }
   };
 
-  const startCamera = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ 
-        video: { facingMode: "environment" }, 
-        audio: false 
-      });
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-        streamRef.current = stream;
-        setIsLiveCameraOpen(true);
+  useEffect(() => {
+    if (isLiveCameraOpen) {
+      const initCamera = async () => {
+        try {
+          // Wait a bit for the video element to be in the DOM
+          await new Promise(resolve => setTimeout(resolve, 100));
+          const stream = await navigator.mediaDevices.getUserMedia({ 
+            video: { facingMode: "environment" }, 
+            audio: false 
+          });
+          if (videoRef.current) {
+            videoRef.current.srcObject = stream;
+            streamRef.current = stream;
+          }
+        } catch (err) {
+          console.error("Error accessing camera:", err);
+          setIsLiveCameraOpen(false);
+          cameraInputRef.current?.click();
+        }
+      };
+      initCamera();
+    } else {
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach(track => track.stop());
+        streamRef.current = null;
       }
-    } catch (err) {
-      console.error("Error accessing camera:", err);
-      // Fallback to native file input if getUserMedia fails
-      cameraInputRef.current?.click();
     }
+  }, [isLiveCameraOpen]);
+
+  const startCamera = () => {
+    setIsLiveCameraOpen(true);
   };
 
   const stopCamera = () => {
-    if (streamRef.current) {
-      streamRef.current.getTracks().forEach(track => track.stop());
-      streamRef.current = null;
-    }
     setIsLiveCameraOpen(false);
   };
 
@@ -59,7 +70,7 @@ export default function UploadPage() {
       const context = canvas.getContext("2d");
       if (context) {
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
-        stopCamera();
+        setIsLiveCameraOpen(false);
         setStep('verify');
       }
     }
