@@ -29,14 +29,14 @@ const answerFinancialQuery = async (businessId, userQuery) => {
     `;
 
     const response = await axios.post(
-      'https://openrouter.ai/api/v1/chat/completions',
+      'https://api.groq.com/openai/v1/chat/completions',
       {
-        model: 'google/gemini-2.0-flash-exp:free',
+        model: 'llama-3.3-70b-versatile',
         messages: [{ role: 'user', content: prompt }]
       },
       {
         headers: {
-          'Authorization': `Bearer ${config.openRouterApiKey}`,
+          'Authorization': `Bearer ${config.groqApiKey}`,
           'Content-Type': 'application/json',
         },
         timeout: 30000,

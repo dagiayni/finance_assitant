@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { authMiddleware, ownerOnly } = require('../middleware/auth');
-const Receipt = require('../models/receipts');
-const Business = require('../models/businesses');
+const Receipt = require('../models/receiptsSheets');
 const { extractReceiptData } = require('../services/receiptExtractor');
 const logger = require('../config/logger');
 
@@ -15,28 +14,22 @@ router.post('/upload', authMiddleware, async (req, res) => {
     // Step 1 & 2: OCR + AI Extraction
     const extractedData = await extractReceiptData(imageBase64);
     
-    // Step 3: Fetch business to compare TIN
-    const business = await Business.findById(req.user.business_id);
+    // Step 4: Classify (Simplified for Sheets MVP)
+    const type = 'expense'; // Default to expense if no master TIN comparison for now
     
-    // Step 4: Classify based on TIN
-    const type = extractedData.vendor_tin === business.master_tin ? 'income' : 'expense';
-    
-    // Step 5: Save as pending
+    // Step 5: Save to Google Sheets
     const receipt = await Receipt.create({
-      business_id: req.user.business_id,
-      uploaded_by: req.user.id,
+      uploaded_by: req.user.telegram_id, // Use telegram_id for Sheets MVP
       type,
       vendor_name: extractedData.vendor_name,
       vendor_tin: extractedData.vendor_tin,
       date: extractedData.date,
       total_amount: extractedData.total_amount,
       currency: extractedData.currency,
-      tax: extractedData.tax,
-      subtotal: extractedData.subtotal,
       raw_ocr_text: extractedData.raw_ocr_text,
       confidence: extractedData.confidence,
       status: 'pending'
-    }, extractedData.items);
+    });
 
     res.json({
       receiptId: receipt.id,
@@ -45,7 +38,7 @@ router.post('/upload', authMiddleware, async (req, res) => {
       total_amount: receipt.total_amount,
       type: receipt.type,
       confidence: receipt.confidence,
-      needsReview: receipt.confidence < 0.75
+      needsReview: (receipt.confidence || 0) < 0.75
     });
   } catch (err) {
     logger.error('Upload Route Error:', err);

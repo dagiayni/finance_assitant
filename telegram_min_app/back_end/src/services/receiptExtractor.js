@@ -29,7 +29,7 @@ const extractFromOCRSpace = async (imageBase64) => {
   }
 };
 
-const parseWithGemini = async (rawText) => {
+const parseWithAI = async (rawText) => {
   try {
     const prompt = `
       Extract structured data from the following raw OCR text of a financial receipt. 
@@ -49,15 +49,15 @@ const parseWithGemini = async (rawText) => {
     `;
 
     const response = await axios.post(
-      'https://openrouter.ai/api/v1/chat/completions',
+      'https://api.groq.com/openai/v1/chat/completions',
       {
-        model: 'google/gemini-2.0-flash-exp:free',
+        model: 'llama-3.3-70b-versatile',
         messages: [{ role: 'user', content: prompt }],
         response_format: { type: 'json_object' }
       },
       {
         headers: {
-          'Authorization': `Bearer ${config.openRouterApiKey}`,
+          'Authorization': `Bearer ${config.groqApiKey}`,
           'Content-Type': 'application/json',
         },
         timeout: 30000,
@@ -65,19 +65,16 @@ const parseWithGemini = async (rawText) => {
     );
 
     let content = response.data.choices[0].message.content;
-    // Clean potential markdown backticks
-    content = content.replace(/```json|```/g, '').trim();
-    
     return JSON.parse(content);
   } catch (err) {
-    logger.error('Gemini Parsing Error:', err.message);
+    logger.error('AI Parsing Error:', err.message);
     throw err;
   }
 };
 
 const extractReceiptData = async (imageBase64) => {
   const rawText = await extractFromOCRSpace(imageBase64);
-  const parsedData = await parseWithGemini(rawText);
+  const parsedData = await parseWithAI(rawText);
   return { ...parsedData, raw_ocr_text: rawText };
 };
 

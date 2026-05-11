@@ -5,7 +5,7 @@ const requiredEnvVars = [
   'DATABASE_URL',
   'JWT_SECRET',
   'TELEGRAM_BOT_TOKEN',
-  'OPENROUTER_API_KEY'
+  'GROQ_API_KEY'
 ];
 
 const missingEnvVars = requiredEnvVars.filter((varName) => !process.env[varName]);
@@ -24,13 +24,14 @@ module.exports = {
   jwtSecret: process.env.JWT_SECRET,
   telegramBotToken: process.env.TELEGRAM_BOT_TOKEN,
   telegramGroupId: process.env.TELEGRAM_GROUP_ID,
-  openRouterApiKey: process.env.OPENROUTER_API_KEY,
+  groqApiKey: process.env.GROQ_API_KEY,
   ocrSpaceApiKey: process.env.OCR_SPACE_API_KEY,
   pineconeApiKey: process.env.PINECONE_API_KEY,
   pineconeIndex: process.env.PINECONE_INDEX || 'habesha-receipts',
   googleClientId: process.env.GOOGLE_CLIENT_ID,
   googleClientSecret: process.env.GOOGLE_CLIENT_SECRET,
   googleRefreshToken: process.env.GOOGLE_REFRESH_TOKEN,
+  googleSheetId: process.env.GOOGLE_SHEET_ID,
   frontendUrl: process.env.FRONTEND_URL || 'http://localhost:3001',
   logLevel: process.env.LOG_LEVEL || 'info',
 };

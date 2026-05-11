@@ -39,16 +39,22 @@ app.use((err, req, res, next) => {
 
 const startServer = async () => {
   try {
-    // Run migrations on startup as requested
-    await runMigrations();
+    // Run migrations on startup if DATABASE_URL is present
+    if (config.databaseUrl) {
+      await runMigrations();
+    }
 
-    app.listen(config.port, () => {
-      logger.info(`Server running on port ${config.port} in ${config.nodeEnv} mode`);
-    });
+    if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+      app.listen(config.port, () => {
+        logger.info(`Server running on port ${config.port} in ${config.nodeEnv} mode`);
+      });
+    }
   } catch (err) {
     logger.error('Failed to start server', err);
-    process.exit(1);
+    // Don't exit in serverless as it might just be a cold start
   }
 };
 
 startServer();
+
+module.exports = app;

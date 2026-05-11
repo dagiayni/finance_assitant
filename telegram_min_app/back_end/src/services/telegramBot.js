@@ -2,13 +2,16 @@ const axios = require('axios');
 const config = require('../config/env');
 const logger = require('../config/logger');
 
-const sendMessage = async (chatId, text) => {
+const sendMessage = async (chatId, text, replyMarkup = null) => {
   try {
-    await axios.post(`https://api.telegram.org/bot${config.telegramBotToken}/sendMessage`, {
+    const data = {
       chat_id: chatId,
       text: text,
       parse_mode: 'HTML'
-    });
+    };
+    if (replyMarkup) data.reply_markup = replyMarkup;
+    
+    await axios.post(`https://api.telegram.org/bot${config.telegramBotToken}/sendMessage`, data);
   } catch (err) {
     logger.error('Telegram sendMessage Error:', err.message);
   }
